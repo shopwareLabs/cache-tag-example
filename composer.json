@@ -6,8 +6,23 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Shopware AG"
+            "name": "Shopware AG",
+            "homepage": "https://www.shopware.com"
         }
+    ],
+    "homepage": "https://github.com/shopware/SwagCacheTagExample",
+    "support": {
+        "issues": "https://github.com/shopware/SwagCacheTagExample/issues",
+        "docs": "https://developer.shopware.com/docs/guides/plugins/plugins/framework/caching/"
+    },
+    "keywords": [
+        "shopware",
+        "shopware6",
+        "cache",
+        "cache-tags",
+        "http-cache",
+        "example",
+        "plugin"
     ],
     "require": {
         "shopware/core": ">=6.7.0"

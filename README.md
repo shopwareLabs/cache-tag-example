@@ -4,6 +4,56 @@ Example plugin demonstrating the **new cache tag system** introduced in Shopware
 
 > **Important:** Always test cache tags in both development AND production mode! The Symfony Profiler is only available in development mode. See [Production Mode vs. Development Mode](#production-mode-vs-development-mode) for details.
 
+## Quick Start
+
+### Option 1: Clone into existing Shopware project
+
+```bash
+# Navigate to your Shopware installation
+cd /path/to/shopware
+
+# Clone the plugin into custom/plugins
+git clone https://github.com/shopware/SwagCacheTagExample.git custom/plugins/SwagCacheTagExample
+
+# Register the plugin with Composer (for autoloading)
+composer config repositories.swag-cache-tag-example '{"type": "path", "url": "custom/plugins/SwagCacheTagExample", "options": {"symlink": true}}'
+composer require "swag/cache-tag-example:*"
+
+# Install and activate the plugin
+bin/console plugin:refresh
+bin/console plugin:install --activate SwagCacheTagExample
+bin/console cache:clear
+```
+
+### Option 2: Copy plugin files manually
+
+```bash
+# Copy the plugin folder to your Shopware installation
+cp -r SwagCacheTagExample /path/to/shopware/custom/plugins/
+
+# Then follow the Composer and activation steps from Option 1
+```
+
+### Option 3: Use as a template
+
+1. Fork this repository
+2. Rename the plugin namespace and files to match your plugin name
+3. Modify the cache tag logic for your use case
+
+### Verify Installation
+
+After installation, visit a product page and check:
+
+```bash
+# Check if cache tags are added (development mode)
+# Open Symfony Profiler > Cache tags section
+
+# Or check response headers (any mode)
+curl -I "http://localhost:8000/detail/your-product-id" | grep "x-shopware-cache-id"
+```
+
+You should see tags like `my-plugin-external-data`, `my-plugin-product-*`, etc.
+
 ## Background
 
 With Shopware 6.7, the separate Store-API route caching layer was removed. This means:
