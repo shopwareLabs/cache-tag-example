@@ -187,19 +187,6 @@ Logs all cache tags for debugging purposes. Check your logs to verify tags are b
 3. **Rule Area Optimization**: Only relevant rules affect cache keys
 4. **Logged-in Users Cached**: Cache is active by default (opt-out instead of opt-in)
 
-## Installation
-
-```bash
-# Refresh plugin list
-bin/console plugin:refresh
-
-# Install and activate
-bin/console plugin:install --activate SwagCacheTagExample
-
-# Clear cache
-bin/console cache:clear
-```
-
 ## Verifying Cache Tags in the Storefront
 
 After installing the plugin, use these methods to verify that cache tags are being added correctly.
