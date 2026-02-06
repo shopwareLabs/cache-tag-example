@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- 
+            Cache Tag Subscriber Example
+            
+            This demonstrates the NEW way to add cache tags in Shopware 6.7+
+            
+            OLD WAY (deprecated, removed in 6.8):
+            - Subscribe to NavigationRouteCacheTagsEvent, ProductDetailRouteCacheTagsEvent, etc.
+            
+            NEW WAY:
+            - Inject CacheTagCollector and call addTag() method
+        -->
+        <service id="Swag\CacheTagExample\Subscriber\CacheTagSubscriber">
+            <argument type="service" id="Shopware\Core\Framework\Adapter\Cache\CacheTagCollector"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <!--
+            Example: Decorating a route to add cache tags
+            
+            If you need to add cache tags directly in a route context,
+            you can decorate the route and inject CacheTagCollector.
+        -->
+        <service id="Swag\CacheTagExample\Route\DecoratedProductDetailRoute"
+                 decorates="Shopware\Core\Content\Product\SalesChannel\Detail\ProductDetailRoute">
+            <argument type="service" id="Swag\CacheTagExample\Route\DecoratedProductDetailRoute.inner"/>
+            <argument type="service" id="Shopware\Core\Framework\Adapter\Cache\CacheTagCollector"/>
+        </service>
+
+        <!--
+            Example: Adding custom rule areas for cache key calculation
+            
+            If your plugin uses custom rules that should affect the HTTP cache key,
+            subscribe to ResolveCacheRelevantRuleIdsExtension.
+        -->
+        <service id="Swag\CacheTagExample\Subscriber\CacheRuleAreaSubscriber">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <!--
+            Example: Custom cache invalidator service
+            
+            Use this to invalidate cache entries by your custom tags
+            when data changes (e.g., from webhooks, imports, admin actions).
+        -->
+        <service id="Swag\CacheTagExample\Service\CustomCacheInvalidator">
+            <argument type="service" id="Shopware\Core\Framework\Adapter\Cache\CacheInvalidator"/>
+        </service>
+
+        <!--
+            Debug subscriber: Logs all cache tags being added.
+            
+            Check var/log/dev.log for "[SwagCacheTagExample]" entries.
+            Remove this in production!
+        -->
+        <service id="Swag\CacheTagExample\Subscriber\DebugCacheTagSubscriber">
+            <argument type="service" id="logger"/>
+            <tag name="kernel.event_subscriber"/>
+            <tag name="monolog.logger" channel="cache"/>
+        </service>
+    </services>
+</container>

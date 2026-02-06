@@ -1,0 +1,36 @@
+{
+    "name": "swag/cache-tag-example",
+    "description": "Example plugin demonstrating the new cache tag system in Shopware 6.7+",
+    "type": "shopware-platform-plugin",
+    "version": "1.0.0",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Shopware AG"
+        }
+    ],
+    "require": {
+        "shopware/core": ">=6.7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Swag\\CacheTagExample\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Swag\\CacheTagExample\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "shopware-plugin-class": "Swag\\CacheTagExample\\SwagCacheTagExample",
+        "label": {
+            "de-DE": "Cache Tag Beispiel",
+            "en-GB": "Cache Tag Example"
+        },
+        "description": {
+            "de-DE": "Beispiel-Plugin für das neue Cache-Tag-System in Shopware 6.7+",
+            "en-GB": "Example plugin demonstrating the new cache tag system in Shopware 6.7+"
+        }
+    }
+}
